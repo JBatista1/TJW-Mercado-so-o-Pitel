@@ -7,9 +7,16 @@ public class Endereco {
 	private String estado;
 	private int cep;
 	private String pais;
+	private String numero;
 	
 	public String getRua() {
 		return rua;
+	}
+	public String getNumero() {
+		return numero;
+	}
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 	public void setRua(String rua) {
 		this.rua = rua;

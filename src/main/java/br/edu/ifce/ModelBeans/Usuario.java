@@ -4,6 +4,28 @@ public class Usuario {
 	private String nome;
 	private String email;
 	private String senha;
+	private String telefone;
+	private String carrinho;
+	private int clinteID;
+	
+	public int getClinteID() {
+		return clinteID;
+	}
+	public void setClinteID(int clinteID) {
+		this.clinteID = clinteID;
+	}
+	public String getCarrinho() {
+		return carrinho;
+	}
+	public void setCarrinho(String carrinho) {
+		this.carrinho = carrinho;
+	}
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 	private int enderecoID;
 	
 	public String getNome() {

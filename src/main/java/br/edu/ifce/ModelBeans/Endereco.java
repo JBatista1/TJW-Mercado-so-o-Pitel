@@ -1,15 +1,31 @@
 package br.edu.ifce.ModelBeans;
 
 public class Endereco {
+	private int enderecoID;
+	
 	private String rua;
 	private String bairro;
 	private String cidade;
 	private String estado;
 	private int cep;
 	private String pais;
+	private String numero;
 	
 	public String getRua() {
 		return rua;
+	}
+	public String getNumero() {
+		return numero;
+	}
+	
+	public int getEnderecoID() {
+		return enderecoID;
+	}
+	public void setEnderecoID(int enderecoID) {
+		this.enderecoID = enderecoID;
+	}
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 	public void setRua(String rua) {
 		this.rua = rua;

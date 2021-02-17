@@ -7,9 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import br.edu.ifce.DataManager.ProdutoDao;
 import br.edu.ifce.DataManager.UsuarioDao;
 import br.edu.ifce.ModelBeans.Endereco;
+import br.edu.ifce.ModelBeans.Produto;
 import br.edu.ifce.ModelBeans.Usuario;
 
 
@@ -19,6 +20,7 @@ import br.edu.ifce.ModelBeans.Usuario;
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsuarioDao usuarioDao;
+	private ProdutoDao produtoDao;
 	private String forward;
     /**
      * @see HttpServlet#HttpServlet()
@@ -26,6 +28,7 @@ public class HomeController extends HttpServlet {
     public HomeController() {
         super();
         usuarioDao = new UsuarioDao();
+        produtoDao = new ProdutoDao();
     }
 
 	/**
@@ -35,20 +38,22 @@ public class HomeController extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		Endereco  endereco = new Endereco();
-		endereco.setBairro("Itaperi");
-		endereco.setCep(60714305);
+		endereco.setBairro("Castelão");
+		endereco.setCep(000000);
 		endereco.setCidade("Fortaleza");
 		endereco.setEstado("Ceará");
 		endereco.setPais("Brasil");
-		endereco.setRua("rua pupunha");
-		endereco.setNumero("125b");
+		endereco.setRua("rua caramuru");
+		endereco.setNumero("tdgete");
+		endereco.setEnderecoID(29);
 		Usuario usuario = new Usuario();
-		usuario.setEmail("joao@bb.com");
-		usuario.setNome("joao Batista");
-		usuario.setSenha("admin123");
-		usuario.setTelefone("999999999");
-		usuarioDao.addUsuario(usuario, endereco);
-		System.out.println(usuarioDao.getAddressById(8));
+		usuario.setEmail("jucatatu@bb.com");
+		usuario.setNome("juca tatu");
+		usuario.setSenha("admin321");
+		usuario.setTelefone("8888888899");
+		usuario.setEndereco(endereco);
+		usuario.setClinteID(25);
+		usuarioDao.deleteCliente(25);
 	}
 
 	/**

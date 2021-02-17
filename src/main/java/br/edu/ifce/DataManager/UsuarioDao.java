@@ -11,6 +11,7 @@ import br.edu.ifce.ModelBeans.Endereco;
 import br.edu.ifce.ModelBeans.Usuario;
 import br.edu.ifce.Utils.DbUtil;
 
+
 public class UsuarioDao {
 	private Connection connection;
 
@@ -21,6 +22,7 @@ public class UsuarioDao {
 	public void addUsuario(Usuario usuario, Endereco endereco) {
 		String sql = "INSERT INTO cliente (nome,email,senha,enderecoID,telefone) VALUES (?,?,?,?,?)";
 		usuario.setEnderecoID(addAddress(endereco));
+		usuario.setEndereco(getAddressById(usuario.getEnderecoID()));
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, usuario.getNome());
@@ -35,31 +37,31 @@ public class UsuarioDao {
 	}
 	
 	public List<Usuario> getAllClientes () {
-		List<Usuario> listaDeClientes = new ArrayList<Usuario>();
+		List<Usuario> listaDeUsuario = new ArrayList<Usuario>();
 		String sql = "SELECT * FROM cliente";
-		
 		
 		try {
 			PreparedStatement st = connection.prepareStatement(sql);
 			ResultSet rs = st.executeQuery(sql);
 			
 			while (rs.next()) {
-				Usuario cliente = new Usuario();
-	            cliente.setClinteID(rs.getInt("clienteID"));
-	            cliente.setNome(rs.getString("nome"));
-	            cliente.setEmail(rs.getString("email"));
-	            cliente.setSenha(rs.getString("senha"));
-	            cliente.setTelefone(rs.getString("telefone"));
-	            cliente.setCarrinho(rs.getString("carrinho"));
-	            cliente.setEnderecoID(rs.getInt("enderecoID"));
-	            listaDeClientes.add(cliente);
+				Usuario usuario = new Usuario();
+				usuario.setClinteID(rs.getInt("clienteID"));
+				usuario.setNome(rs.getString("nome"));
+				usuario.setEmail(rs.getString("email"));
+				usuario.setSenha(rs.getString("senha"));
+				usuario.setTelefone(rs.getString("telefone"));
+				usuario.setCarrinho(rs.getString("carrinho"));
+				usuario.setEnderecoID(rs.getInt("enderecoID"));
+				usuario.setEndereco(getAddressById(usuario.getEnderecoID()));
+	            listaDeUsuario.add(usuario);
 	        }
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return listaDeClientes;
+		return listaDeUsuario;
 	}
 	
 	public Usuario getClienteById(int id) {
@@ -78,6 +80,7 @@ public class UsuarioDao {
  	            cliente.setCarrinho(rs.getString("carrinho"));
  	            cliente.setEnderecoID(rs.getInt("enderecoID"));
             }
+            cliente.setEndereco(getAddressById(cliente.getEnderecoID()));
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,13 +97,34 @@ public class UsuarioDao {
             statement.setInt(1, id);
             statement.executeUpdate();
             statement.close();
+            deleteAddress(getClienteById(id).getEnderecoID());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 	
+	public void updateUsuario(Usuario usuario) {
+		String sql = "update cliente set nome=?, email=?, senha=?, telefone=?, carrinho=? where clienteID=?";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, usuario.getNome());
+			statement.setString(2, usuario.getEmail());
+			statement.setString(3, usuario.getSenha());
+			statement.setString(4, usuario.getTelefone());
+			statement.setString(5, usuario.getCarrinho());
+			statement.setInt(6, usuario.getClinteID());
+			statement.executeUpdate();
+			statement.close();
+			
+			updateEndereco(usuario.getEndereco());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	//MARK: - Endereço
-	public List<Endereco> getAllAnddress() {
+	private List<Endereco> getAllAnddress() {
 		List<Endereco> listaDeEndereco = new ArrayList<Endereco>();
 		
 		String sql = "SELECT * FROM endereco";
@@ -152,24 +176,8 @@ public class UsuarioDao {
 		}
 		return idAddress;
 	}
-
-	public int getIdAddress() {
-		int idAddress = 0;
-		String sql = "SELECT MAX(categoriaID) FROM categoria";
-		try {
-			PreparedStatement statement = connection.prepareStatement(sql);
-			ResultSet rs = statement.executeQuery();
-			if (rs.next()) {
-				idAddress = (rs.getInt("MAX(categoriaID)"));
-			}
-			statement.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return idAddress;
-	}
 	
-	public Endereco getAddressById(int id) {
+	private Endereco getAddressById(int id) {
 		Endereco endereco = new Endereco();
         try {
             PreparedStatement statement = connection.prepareStatement("select * from cliente where clienteID=?");
@@ -194,7 +202,7 @@ public class UsuarioDao {
 		return endereco;
 	}
 	
-	public void deleteAddress(int id) {
+	private void deleteAddress(int id) {
 		String sql = "delete from endereco where enderecoID=?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -205,4 +213,24 @@ public class UsuarioDao {
             e.printStackTrace();
         }
     }
+	
+	private void updateEndereco(Endereco endereco) {
+		String sql = "update endereco set rua=?, bairro=?, cidade=?, estado=?, cep=?, pais=?, numero=? where enderecoID=?";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, endereco.getRua());
+			statement.setString(2, endereco.getBairro());
+			statement.setString(3, endereco.getCidade());
+			statement.setString(4, endereco.getEstado());
+			statement.setInt(5, endereco.getCep());
+			statement.setString(6,endereco.getPais());
+			statement.setString(7,endereco.getNumero());
+			statement.setInt(8,endereco.getEnderecoID());
+			statement.executeUpdate();
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

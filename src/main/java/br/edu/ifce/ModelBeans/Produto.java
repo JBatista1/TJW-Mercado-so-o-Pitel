@@ -1,17 +1,24 @@
 package br.edu.ifce.ModelBeans;
 
 public class Produto {
-	private String name;
+	private String nome;
 	private float preco;
 	private int categoriaID;
 	private String descricao;
-	private String url;
+	private String urlImage;
+	private int produtoID;
 	
-	public String getName() {
-		return name;
+	public int getProdutoID() {
+		return produtoID;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setProdutoID(int produtoID) {
+		this.produtoID = produtoID;
+	}
+	public String getName() {
+		return nome;
+	}
+	public void setName(String nome) {
+		this.nome = nome;
 	}
 	public float getPreco() {
 		return preco;
@@ -32,9 +39,9 @@ public class Produto {
 		this.descricao = descricao;
 	}
 	public String getUrl() {
-		return url;
+		return urlImage;
 	}
-	public void setUrl(String url) {
-		this.url = url;
+	public void setUrl(String urlImage) {
+		this.urlImage = urlImage;
 	}
 }

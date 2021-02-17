@@ -7,7 +7,14 @@ public class Usuario {
 	private String telefone;
 	private String carrinho;
 	private int clinteID;
+	private Endereco endereco;
 	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 	public int getClinteID() {
 		return clinteID;
 	}

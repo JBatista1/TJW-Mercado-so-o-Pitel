@@ -42,11 +42,11 @@ public class ProdutoDao {
 			while (rs.next()) {
 				Produto produto = new Produto();
 	            produto.setProdutoID(rs.getInt("produtoID"));
-	            produto.setName(rs.getString("nome"));
+	            produto.setNome(rs.getString("nome"));
 	            produto.setPreco(rs.getFloat("preco"));
 	            produto.setCategoriaID(rs.getInt("categoriaID"));
 	            produto.setDescricao(rs.getString("descricao"));
-	            produto.setUrl(rs.getString("urlImage"));
+	            produto.setUrlImage(rs.getString("urlImage"));
 	            System.out.println(produto);
 	            listaProdutos.add(produto);
 	        }
@@ -71,7 +71,7 @@ public class ProdutoDao {
 			while (rs.next()) {
 				Categoria categoria = new Categoria();
 	            categoria.setCatgoriaID(rs.getInt("categoriaID")); 
-	            categoria.setName(rs.getString("nome"));
+	            categoria.setNome(rs.getString("nome"));
 	            listaCategoria.add(categoria);
 	        }
 			Statement.close();

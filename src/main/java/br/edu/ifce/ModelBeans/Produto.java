@@ -14,10 +14,10 @@ public class Produto {
 	public void setProdutoID(int produtoID) {
 		this.produtoID = produtoID;
 	}
-	public String getName() {
+	public String getNome() {
 		return nome;
 	}
-	public void setName(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	public float getPreco() {
@@ -38,10 +38,10 @@ public class Produto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public String getUrl() {
+	public String getUrlImage() {
 		return urlImage;
 	}
-	public void setUrl(String urlImage) {
+	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
 	}
 }

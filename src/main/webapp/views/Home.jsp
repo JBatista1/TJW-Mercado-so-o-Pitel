@@ -66,6 +66,7 @@ body {
 .column {
   float: left;
   width: 25%;
+  transition: 0.3s;
 }
 
 /* The Modal (background) */
@@ -186,6 +187,17 @@ img.hover-shadow {
 #rightbox{ 
 float:right; 
 }
+.nobr { white-space: nowrap }
+
+#left{float:left;width:100px;}
+#right{float:right;width:100px;}
+#center{margin:0 auto;width:100px;}
+
+div {
+    word-wrap: break-word;         /* All browsers since IE 5.5+ */
+    overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
+    width: 100%;
+}
 
 </style>
 <meta charset="ISO-8859-1">
@@ -197,8 +209,8 @@ float:right;
 <!--NavBAr-->
 
 <div class="topnav">
-<c:forEach items="${categoria}" var="cliente">
-<a class="${cliente.status}" href="#home"><c:out value="${cliente.nome}"/></a>
+<c:forEach items="${categorias}" var="categoria">
+<a class="${categoria.catgoriaID == filter ? "active" : " "}" href="/MercadoSoOPitel/HomeController?filter=${categoria.catgoriaID}"><c:out value="${categoria.nome}"/></a>
 </c:forEach>
   <a id = "rightbox" href= "/MercadoSoOPitel/HomeController?app=login">Login</a>
   <a id = "rightbox" href= "/MercadoSoOPitel/HomeController?app=cadastrar">Cadastro</a>
@@ -212,18 +224,27 @@ float:right;
 <h2 style="text-align:center">O que procura meu cumpade?</h2>
 
 <div class="row">
-  <div class="column">
-    <img src= "<%=request.getContextPath()%>/image/samsung.jpg" style="width:100%" class="hover-shadow cursor">
-  </div>
-  <div class="column">
-     <img src= "<%=request.getContextPath()%>/image/samsung.jpg" style="width:100%" class="hover-shadow cursor">
-  </div>
-  <div class="column">
-     <img src= "<%=request.getContextPath()%>/image/samsung.jpg" style="width:100%" class="hover-shadow cursor">
-  </div>
-  <div class="column">
-    <img src= "<%=request.getContextPath()%>/image/samsung.jpg" style="width:100%" class="hover-shadow cursor">
-  </div>
+<c:forEach items="${produtos}" var="produto">
+  <div class="column hover-shadow cursor ">
+    <img src ="<%=request.getContextPath()%>${produto.urlImage}" style="width:100%">
+     <table style="width:100%">
+        <tr>
+        <td>
+            <div>
+               <h4 id = "left"><c:out value="${produto.nome}"/> </h4> 
+            </div>
+        </td>
+        <td>
+            <div>
+               <h4 id = "right">R$:<c:out value="${produto.preco}"/></h4> 
+             </div>
+        </td>       
+        </tr>
+    </table>
+    <div>
+    	<p><c:out value="${produto.descricao}"/></p>
+    </div>
+    </c:forEach>
 </div>
 
 

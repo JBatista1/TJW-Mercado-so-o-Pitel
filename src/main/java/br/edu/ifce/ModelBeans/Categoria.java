@@ -1,7 +1,7 @@
 package br.edu.ifce.ModelBeans;
 
 public class Categoria {
-	private String name;
+	private String nome;
 	private int catgoriaID;
 	private String status;
 	
@@ -21,11 +21,11 @@ public class Categoria {
 		this.catgoriaID = catgoriaID;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 }
